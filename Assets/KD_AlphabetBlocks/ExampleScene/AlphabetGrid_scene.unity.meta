@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: b42bb65f3b2ba9e4897362192f7c1b93
+<<<<<<< Updated upstream:Assets/KD_AlphabetBlocks/ExampleScene/AlphabetGrid_scene.unity.meta
+guid: e4647800570e4cc409e1fd4ce57408bc
 timeCreated: 1507421571
+=======
+guid: a7b6914484a72b84188cf4b1e4c46c4b
+timeCreated: 1467220661
+>>>>>>> Stashed changes:Assets/Lowpoly Toon Cat Lite/Demo/Cat_Lite_Demo.unity.meta
 licenseType: Store
 DefaultImporter:
   userData: 
