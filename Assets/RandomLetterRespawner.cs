@@ -5,20 +5,32 @@ using TMPro;
 
 public class RandomLetterRespawner : MonoBehaviour
 {
-    public GameObject letter;
     public int xPos;
     public int yPos;
     public int zPos;
-    public int lettersQuantity = 30;
+    public int lettersQuantity = 500;
     public int indexOfLetters = 0;
     public static string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private char letterSelected;
+    public static string lettersCubDefaultPath = "Prefabs/";
+    public int[] xCoords = new int[2];
+    public int[] yCoords = new int[2];
+    public int[] zCoords = new int[2];
+    public GameObject[] cubeLetters;
 
     int randomInt;
     void Start()
     {
-       // Executa o instanciamento das letras
-       StartCoroutine(SpawnRandom());
+        // Instancia o array dos cubos com o tamanho referente a quantidade de letras informada
+        cubeLetters = new GameObject[lettersQuantity];
+
+        xCoords = new int[2] { 6, 998 };
+        yCoords = new int[2] { 1, 2 };
+        zCoords = new int[2] { 6, 998 };
+
+
+        // Executa o instanciamento das letras
+        StartCoroutine(SpawnRandom());
     }
 
     IEnumerator SpawnRandom()
@@ -26,9 +38,9 @@ public class RandomLetterRespawner : MonoBehaviour
         for(int i = 0; i < lettersQuantity; i++)
         {
             // Limites de terreno para instanciar os objetos
-            xPos = Random.Range(-58, 70);
-            yPos = Random.Range(4, 5);
-            zPos = Random.Range(-75, 67);
+            xPos = Random.Range(xCoords[0], xCoords[1]);
+            yPos = Random.Range(yCoords[0], yCoords[1]);
+            zPos = Random.Range(zCoords[0], zCoords[1]);
 
             // Verifica se acabou a lista de palavras, e se sim, começa do início do alfabeto
             if(indexOfLetters >= letters.Length)
@@ -39,17 +51,17 @@ public class RandomLetterRespawner : MonoBehaviour
             // Pega a letra selecionada
             letterSelected = letters[indexOfLetters];
 
+            // Carrega o objeto da letra selecionada
+            cubeLetters[i] = Resources.Load(lettersCubDefaultPath + "Blue/TOYBlock_Blue_" + letterSelected + "_LP") as GameObject;
+
             // Incrementa o contador de letras
             indexOfLetters++;
 
-            // Altera a letra a ser exibida
-            letter.GetComponent<TextMeshPro>().text = letterSelected.ToString();
-
             // Altera o nome do objeto de texto para verificar a colisão
-            letter.name = letterSelected.ToString();
+            cubeLetters[i].name = letterSelected.ToString();
 
             // Instancia a letra criada nas posições aleatórias geradas
-            Instantiate(letter, new Vector3(xPos, yPos, zPos), Quaternion.identity);
+            Instantiate(cubeLetters[i], new Vector3(xPos, yPos, zPos), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
         }
     }

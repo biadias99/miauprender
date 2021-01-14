@@ -109,8 +109,6 @@ public class cat_movement : MonoBehaviour
             }
         }
 
-        Debug.Log("GROUNDED -> " + grounded);
-
         // Gravidade customizada
         rig.AddForce(new Vector3(0, -customGravity * rig.mass, 0));
 
@@ -134,7 +132,7 @@ public class cat_movement : MonoBehaviour
     // Função que verifica se a colisão com algum objeto permaneceu
     void OnCollisionStay(Collision collisionInfo)
     {
-        Debug.Log("collision ----> " + collisionInfo.gameObject.name);
+       // Debug.Log("collision ----> " + collisionInfo.gameObject.name);
         grounded = true;
     }
 
