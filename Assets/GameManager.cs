@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public Text wordText;
     public Text pointsText;
+    public GameObject wordImageMenuUI;
+    public Image wordImage;
     public int wordLettersRemainingToComplete;
     public string[] animals = new string[] { "C,a,t", "D,o,g", "B,e,e", "A,n,t", "M,o,u,s,e", "H,a,m,s,t,e,r", "R,a,b,b,i,t", "F,i,s,h", "C,r,a,b", "S,h,a,r,k", "D,o,l,p,h,i,n", "F,o,x", "W,o,l,f", "R,h,i,n,o", "K,o,a,l,a", "C,h,e,e,t,a,h", "Z,e,b,r,a", "L,i,o,n", "M,o,n,k,e,y", "G,i,r,a,f,f,e" };
     public string[] numbers = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten" };
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     public string[] colors = new string[] { "Purple", "Pink", "Black", "Green", "Red", "Yellow", "White", "Orange", "Brown", "Grey", "Blue" };
     List<string> currentWordSpplited;
     private string currentWordOriginal = "";
+    private string currentWordFixed = "";
     private bool foundLetter = false;
     int charIndex;
 
@@ -67,12 +70,16 @@ public class GameManager : MonoBehaviour
             // Diminui a quantidade de letras restantes
             wordLettersRemainingToComplete--;
 
+            // teste - remover
+            wordLettersRemainingToComplete = 0;
+
             // Verifica se acabou as letras restantes, ou seja, se a palavra foi completada  
             if (wordLettersRemainingToComplete == 0)
             {
                 // Limpa a palavra atual e coloca uma nova palavra na tela
                 currentWordOriginal = "";
                 wordText.text = GetRandomWord();
+                OpenWordImageMenu();
             }
 
             // Pega os pontos 
@@ -103,9 +110,29 @@ public class GameManager : MonoBehaviour
         {
             currentWordOriginal += s;
         }
+
+        // Salva a palavra original para encontrar a imagem correspondente
+        currentWordFixed = "cat";
+        // currentWordFixed = currentWordOriginal;
+
         // Atualiza a quantidade de letras restantes
         wordLettersRemainingToComplete = currentWordOriginal.Length;
 
         return currentWordOriginal;
+    }
+
+    public void CloseWordImageMenu()
+    {
+        wordImageMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+    }
+
+    public void OpenWordImageMenu()
+    {
+        wordImage.sprite = Resources.Load<Sprite>("Sprites/" + currentWordFixed.ToLower());
+        wordImageMenuUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0;
     }
 }
