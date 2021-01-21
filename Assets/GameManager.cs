@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public Text wordText;
     public Text pointsText;
+    public TMP_Text finishGamePointsText;
     public GameObject wordImageMenuUI;
+    public GameObject finishGameMenuUI;
     public Image wordImage;
     public int wordLettersRemainingToComplete;
     public string[] animals = new string[] { "C,a,t", "D,o,g", "B,e,e", "A,n,t", "M,o,u,s,e", "H,a,m,s,t,e,r", "R,a,b,b,i,t", "F,i,s,h", "C,r,a,b", "S,h,a,r,k", "D,o,l,p,h,i,n", "F,o,x", "W,o,l,f", "R,h,i,n,o", "K,o,a,l,a", "C,h,e,e,t,a,h", "Z,e,b,r,a", "L,i,o,n", "M,o,n,k,e,y", "G,i,r,a,f,f,e" };
@@ -19,6 +23,9 @@ public class GameManager : MonoBehaviour
     private string currentWordOriginal = "";
     private string currentWordFixed = "";
     private bool foundLetter = false;
+    public int wordsCompleted = 0;
+    public int wordsToFinishGame = 1;
+    public int points = 0;
     int charIndex;
 
     void Start()
@@ -76,14 +83,24 @@ public class GameManager : MonoBehaviour
             // Verifica se acabou as letras restantes, ou seja, se a palavra foi completada  
             if (wordLettersRemainingToComplete == 0)
             {
-                // Limpa a palavra atual e coloca uma nova palavra na tela
-                currentWordOriginal = "";
-                wordText.text = GetRandomWord();
+
+                // Atualiza a quantidade de palavras completadas
+                wordsCompleted++;
+
+                // Mostra a imagem da palavra completada
                 OpenWordImageMenu();
+
+                if (wordsCompleted < wordsToFinishGame)
+                {
+                    // Limpa a palavra atual e coloca uma nova palavra na tela
+                    currentWordOriginal = "";
+                    wordText.text = GetRandomWord();
+                }
+               
             }
 
             // Pega os pontos 
-            int points = int.Parse(pointsText.text.Remove(0, 8));
+            points = int.Parse(pointsText.text.Remove(0, 8));
 
             points += 5;
 
@@ -123,9 +140,18 @@ public class GameManager : MonoBehaviour
 
     public void CloseWordImageMenu()
     {
-        wordImageMenuUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
+        if (wordsCompleted == wordsToFinishGame)
+        {
+            // Jogo concluído!
+            wordImageMenuUI.SetActive(false);
+            OpenFinishGameMenu();
+        }
+        else
+        {
+            wordImageMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+        }
     }
 
     public void OpenWordImageMenu()
@@ -134,5 +160,26 @@ public class GameManager : MonoBehaviour
         wordImageMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0;
+    }
+
+    public void OpenFinishGameMenu()
+    {
+        finishGamePointsText.text = "Pontuação final: " + points;
+        finishGameMenuUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0;
+    }
+
+    public void PlayGameAgain()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void GoToMenu()
+    {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Menu");
     }
 }
