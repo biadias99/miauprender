@@ -3936,6 +3936,8 @@ MonoBehaviour:
   wordImageMenuUI: {fileID: 1528463663}
   finishGameMenuUI: {fileID: 691036634}
   wordImage: {fileID: 1834412468}
+  randomLetterRespawner: {fileID: 1593774401}
+  pauseMenu: {fileID: 1975069375}
   wordLettersRemainingToComplete: 0
   animals:
   - C,a,t
@@ -4007,8 +4009,10 @@ MonoBehaviour:
   - Brown
   - Grey
   - Blue
+  currentWordOriginal: 
+  currentWordFixed: 
   wordsCompleted: 0
-  wordsToFinishGame: 1
+  wordsToFinishGame: 2
   points: 0
 --- !u!4 &1593774400
 Transform:
@@ -4045,6 +4049,9 @@ MonoBehaviour:
   yCoords: 0000000000000000
   zCoords: 0000000000000000
   cubeLetters: []
+  cubeLettersInstance: []
+  canInstantiateNextLetters: 0
+  gameManager: {fileID: 1593774399}
 --- !u!1 &1661649257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4954,6 +4961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 597854346}
+  canPauseMenu: 1
 --- !u!1 &2093524565
 GameObject:
   m_ObjectHideFlags: 3

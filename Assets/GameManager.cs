@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject wordImageMenuUI;
     public GameObject finishGameMenuUI;
     public Image wordImage;
+    public RandomLetterRespawner randomLetterRespawner;
+    public PauseMenu pauseMenu;
     public int wordLettersRemainingToComplete;
     public string[] animals = new string[] { "C,a,t", "D,o,g", "B,e,e", "A,n,t", "M,o,u,s,e", "H,a,m,s,t,e,r", "R,a,b,b,i,t", "F,i,s,h", "C,r,a,b", "S,h,a,r,k", "D,o,l,p,h,i,n", "F,o,x", "W,o,l,f", "R,h,i,n,o", "K,o,a,l,a", "C,h,e,e,t,a,h", "Z,e,b,r,a", "L,i,o,n", "M,o,n,k,e,y", "G,i,r,a,f,f,e" };
     public string[] numbers = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten" };
@@ -20,16 +22,16 @@ public class GameManager : MonoBehaviour
     public string[] fruits = new string[] { "Apple", "Banana", "Pear", "Pineapple", "Grapes", "Kiwi", "Lime", "Cherry", "Peach", "Melon", "Tomato" };
     public string[] colors = new string[] { "Purple", "Pink", "Black", "Green", "Red", "Yellow", "White", "Orange", "Brown", "Grey", "Blue" };
     List<string> currentWordSpplited;
-    private string currentWordOriginal = "";
-    private string currentWordFixed = "";
+    public string currentWordOriginal = "";
+    public string currentWordFixed = "";
     private bool foundLetter = false;
     public int wordsCompleted = 0;
-    public int wordsToFinishGame = 1;
+    public int wordsToFinishGame = 2;
     public int points = 0;
-    int charIndex;
 
     void Start()
     {
+        pauseMenu.canPauseMenu = true;
         wordText.text = GetRandomWord();
     }
     public void ExitGame()
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
             wordLettersRemainingToComplete--;
 
             // teste - remover
-            wordLettersRemainingToComplete = 0;
+           //  wordLettersRemainingToComplete = 0;
 
             // Verifica se acabou as letras restantes, ou seja, se a palavra foi completada  
             if (wordLettersRemainingToComplete == 0)
@@ -129,17 +131,20 @@ public class GameManager : MonoBehaviour
         }
 
         // Salva a palavra original para encontrar a imagem correspondente
-        currentWordFixed = "cat";
+        currentWordFixed = currentWordOriginal;
         // currentWordFixed = currentWordOriginal;
 
         // Atualiza a quantidade de letras restantes
         wordLettersRemainingToComplete = currentWordOriginal.Length;
+
+        randomLetterRespawner.DestroyAllWordObjects();
 
         return currentWordOriginal;
     }
 
     public void CloseWordImageMenu()
     {
+        pauseMenu.canPauseMenu = true;
         if (wordsCompleted == wordsToFinishGame)
         {
             // Jogo concluído!
@@ -156,6 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenWordImageMenu()
     {
+        pauseMenu.canPauseMenu = false;
         wordImage.sprite = Resources.Load<Sprite>("Sprites/" + currentWordFixed.ToLower());
         wordImageMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Confined;
@@ -164,6 +170,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenFinishGameMenu()
     {
+        pauseMenu.canPauseMenu = false;
         finishGamePointsText.text = "Pontuação final: " + points;
         finishGameMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Confined;
