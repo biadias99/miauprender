@@ -56,6 +56,7 @@ public class cat_movement : MonoBehaviour
             // Verifica a magnitude da direção
             if (direction.magnitude >= 0.1f)
             {
+                canJump = true;
                 // Pegar o melhor ângulo para apontar o personagem
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 // Faz o ângulo virar não-bruscamente, mais limpo
@@ -82,6 +83,7 @@ public class cat_movement : MonoBehaviour
 
             else
             {
+                canJump = false;
                 if (!canPlayAudio)
                 {
 
@@ -132,7 +134,7 @@ public class cat_movement : MonoBehaviour
     // Função que verifica se a colisão com algum objeto permaneceu
     void OnCollisionStay(Collision collisionInfo)
     {
-       // Debug.Log("collision ----> " + collisionInfo.gameObject.name);
+       Debug.Log("collision stay ----> " + collisionInfo.gameObject.name);
         grounded = true;
     }
 
@@ -143,6 +145,7 @@ public class cat_movement : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        Debug.Log("COLLISION EXIT ----> " + collision.gameObject.name);
         if(collision.gameObject.name == "Terrain")
         {
             grounded = false;

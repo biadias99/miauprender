@@ -8,7 +8,7 @@ public class RandomLetterRespawner : MonoBehaviour
     public int xPos;
     public int yPos;
     public int zPos;
-    public int lettersQuantity = 500;
+    public int lettersQuantity = 100;
     public int indexOfLetters = 0;
     public static string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private char letterSelected;
