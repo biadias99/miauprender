@@ -3164,8 +3164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -234.55}
-  m_SizeDelta: {x: 763.1394, y: 178.89172}
+  m_AnchoredPosition: {x: -5.6703, y: -234.54999}
+  m_SizeDelta: {x: 1931.3, y: 178.8917}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1247045187
 MonoBehaviour:
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Palavra completada!
+  m_text: Palavra completada!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b246c4190f4e46ec9352fe15a7b09ce0, type: 2}
@@ -3885,7 +3885,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570102427}
-  m_LocalRotation: {x: 0.16338244, y: 0.00000001697517, z: -0.0000000028112193, w: 0.98656285}
+  m_LocalRotation: {x: 0.16338244, y: -0.000000016975182, z: 0.0000000028112217, w: 0.98656285}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4005,82 +4005,13 @@ MonoBehaviour:
   wordText: {fileID: 1577808377}
   pointsText: {fileID: 1474829296}
   finishGamePointsText: {fileID: 224211509}
+  completedWordText: {fileID: 1247045187}
   wordImageMenuUI: {fileID: 1528463663}
   finishGameMenuUI: {fileID: 691036634}
   wordImage: {fileID: 1834412468}
   randomLetterRespawner: {fileID: 1593774401}
   pauseMenu: {fileID: 1975069375}
   wordLettersRemainingToComplete: 0
-  animals:
-  - C,a,t
-  - D,o,g
-  - B,e,e
-  - A,n,t
-  - M,o,u,s,e
-  - H,a,m,s,t,e,r
-  - R,a,b,b,i,t
-  - F,i,s,h
-  - C,r,a,b
-  - S,h,a,r,k
-  - D,o,l,p,h,i,n
-  - F,o,x
-  - W,o,l,f
-  - R,h,i,n,o
-  - K,o,a,l,a
-  - C,h,e,e,t,a,h
-  - Z,e,b,r,a
-  - L,i,o,n
-  - M,o,n,k,e,y
-  - G,i,r,a,f,f,e
-  numbers:
-  - One
-  - Two
-  - Three
-  - Four
-  - Five
-  - Six
-  - Seven
-  - Eight
-  - Nine
-  - Ten
-  food:
-  - Pasta
-  - Chips
-  - Chicken
-  - Pie
-  - Cake
-  - Pizza
-  - Noodles
-  - Milk
-  - Juice
-  - Eggs
-  - Meat
-  - Cheese
-  - Bread
-  fruits:
-  - Apple
-  - Banana
-  - Pear
-  - Pineapple
-  - Grapes
-  - Kiwi
-  - Lime
-  - Cherry
-  - Peach
-  - Melon
-  - Tomato
-  colors:
-  - Purple
-  - Pink
-  - Black
-  - Green
-  - Red
-  - Yellow
-  - White
-  - Orange
-  - Brown
-  - Grey
-  - Blue
   currentWordOriginal: 
   currentWordFixed: 
   wordsCompleted: 0

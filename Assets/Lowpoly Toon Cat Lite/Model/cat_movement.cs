@@ -67,7 +67,7 @@ public class cat_movement : MonoBehaviour
                 // Move de fato sempre na direção da câmera
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-                velocity = animMovNumber > 0.6 ? 30.0f : 3.0f;
+                velocity = animMovNumber > 0.6 ? 20.0f : 3.0f;
 
                 // Move o rigbody do personagem
                 rig.velocity = moveDir.normalized * velocity;
@@ -134,7 +134,6 @@ public class cat_movement : MonoBehaviour
     // Função que verifica se a colisão com algum objeto permaneceu
     void OnCollisionStay(Collision collisionInfo)
     {
-       Debug.Log("collision stay ----> " + collisionInfo.gameObject.name);
         grounded = true;
     }
 
@@ -145,7 +144,6 @@ public class cat_movement : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log("COLLISION EXIT ----> " + collision.gameObject.name);
         if(collision.gameObject.name == "Terrain")
         {
             grounded = false;
