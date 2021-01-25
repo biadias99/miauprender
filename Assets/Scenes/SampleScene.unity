@@ -4493,6 +4493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b57bb1a9d8757447b5a3413ec1aa96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuAudioSource: {fileID: 0}
 --- !u!1 &1570102427
 GameObject:
   m_ObjectHideFlags: 3
@@ -4559,7 +4560,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570102427}
-  m_LocalRotation: {x: 0.16338244, y: -0.000000016975182, z: 0.0000000028112217, w: 0.98656285}
+  m_LocalRotation: {x: 0.16338244, y: 0.00000001697517, z: -0.0000000028112193, w: 0.98656285}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4784,7 +4785,7 @@ MonoBehaviour:
   currentWordFixed: 
   selectedWord: 
   wordsCompleted: 0
-  wordsToFinishGame: 10
+  wordsToFinishGame: 5
   points: 0
 --- !u!4 &1593774400
 Transform:
@@ -4873,6 +4874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b57bb1a9d8757447b5a3413ec1aa96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuAudioSource: {fileID: 0}
 --- !u!1 &1662655199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,6 +5526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b57bb1a9d8757447b5a3413ec1aa96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuAudioSource: {fileID: 0}
 --- !u!1 &1975069370
 GameObject:
   m_ObjectHideFlags: 0

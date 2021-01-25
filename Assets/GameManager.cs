@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public string selectedWord = "";
     private bool foundLetter = false;
     public int wordsCompleted = 0;
-    public int wordsToFinishGame = 10;
+    public int wordsToFinishGame = 5;
     public int points = 0;
 
     void Start()
