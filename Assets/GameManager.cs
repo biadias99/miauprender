@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Image wordImage;
     public RandomLetterRespawner randomLetterRespawner;
     public PauseMenu pauseMenu;
+    public AudioSource wordAudioSource;
     public int wordLettersRemainingToComplete;
     static public string[] animals = new string[] { "C,a,t", "D,o,g", "B,e,e", "A,n,t", "M,o,u,s,e", "H,a,m,s,t,e,r", "R,a,b,b,i,t", "F,i,s,h", "C,r,a,b", "S,h,a,r,k", "D,o,l,p,h,i,n", "F,o,x", "W,o,l,f", "R,h,i,n,o", "K,o,a,l,a", "C,h,e,e,t,a,h", "Z,e,b,r,a", "L,i,o,n", "M,o,n,k,e,y", "G,i,r,a,f,f,e" };
     static public string[] numbers = new string[] { "O,n,e", "T,w,o", "T,h,r,e,e", "F,o,u,r", "F,i,v,e", "S,i,x", "S,e,v,e,n", "E,i,g,h,t", "N,i,n,e", "T,e,n" };
@@ -24,11 +25,13 @@ public class GameManager : MonoBehaviour
     static public string[] colors = new string[] { "P,u,r,p,l,e", "P,i,n,k", "B,l,a,c,k", "G,r,e,e,n", "R,e,d", "Y,e,l,l,o,w", "W,h,i,t,e", "O,r,a,n,g,e", "B,r,o,w,n", "G,r,e,y", "B,l,u,e" };
     static public string[] currentCategoryWords;
     List<string> currentWordSpplited;
+    List<string> wordsAlreadyDone = new List<string>();
     public string currentWordOriginal = "";
     public string currentWordFixed = "";
+    public string selectedWord = "";
     private bool foundLetter = false;
     public int wordsCompleted = 0;
-    public int wordsToFinishGame = 2;
+    public int wordsToFinishGame = 10;
     public int points = 0;
 
     void Start()
@@ -81,9 +84,6 @@ public class GameManager : MonoBehaviour
             // Diminui a quantidade de letras restantes
             wordLettersRemainingToComplete--;
 
-            // teste - remover
-           //  wordLettersRemainingToComplete = 0;
-
             // Verifica se acabou as letras restantes, ou seja, se a palavra foi completada  
             if (wordLettersRemainingToComplete == 0)
             {
@@ -91,16 +91,11 @@ public class GameManager : MonoBehaviour
                 // Atualiza a quantidade de palavras completadas
                 wordsCompleted++;
 
-                // Mostra a imagem da palavra completada
-                OpenWordImageMenu();
+                // Salva as palavras que foram completadas
+                wordsAlreadyDone.Add(selectedWord);
 
-                if (wordsCompleted < wordsToFinishGame)
-                {
-                    // Limpa a palavra atual e coloca uma nova palavra na tela
-                    currentWordOriginal = "";
-                    wordText.text = GetRandomWord();
-                }
-               
+                // Mostra a imagem da palavra completada
+                OpenWordImageMenu();         
             }
 
             // Pega os pontos 
@@ -123,8 +118,28 @@ public class GameManager : MonoBehaviour
         // Pega uma palavra aleatoriamente do array selecionado
         int randomIndex = Random.Range(0, currentCategoryWords.Length);
 
+        selectedWord = currentCategoryWords[randomIndex];
+        int i = 0;
+
+        if (wordsAlreadyDone != null)
+        {
+            while (i < wordsAlreadyDone.Count)
+            {
+                if (selectedWord.Equals(wordsAlreadyDone[i]))
+                {
+                    randomIndex = Random.Range(0, currentCategoryWords.Length);
+                    selectedWord = currentCategoryWords[randomIndex];
+                    i = 0;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+
         // Cria uma versão da palavra selecionada para ser verificada
-        currentWordSpplited = new List<string>(currentCategoryWords[randomIndex].Split(','));
+        currentWordSpplited = new List<string>(selectedWord.Split(','));
 
         // Cria a palavra origial sem as ','
         foreach (string s in currentWordSpplited)
@@ -156,10 +171,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // Limpa a palavra atual e coloca uma nova palavra na tela
+            currentWordOriginal = "";
+            wordText.text = GetRandomWord();
+
             wordImageMenuUI.SetActive(false);
             Time.timeScale = 1;
             PauseMenu.GameIsPaused = false;
             PauseMenu.canVerifyPauseMenu = true;
+
         }
     }
 
@@ -170,6 +190,7 @@ public class GameManager : MonoBehaviour
         wordImage.preserveAspect = true;
         completedWordText.text = currentWordFixed;
         wordImageMenuUI.SetActive(true);
+        PlayWordSound();
         Time.timeScale = 0;
         PauseMenu.GameIsPaused = true;
         PauseMenu.canVerifyPauseMenu = true;
@@ -197,5 +218,14 @@ public class GameManager : MonoBehaviour
     {
             Time.timeScale = 1;
             SceneManager.LoadScene("Menu");
+    }
+
+    public void PlayWordSound()
+    {
+        if(!wordAudioSource.isPlaying)
+        {
+            wordAudioSource.clip = Resources.Load<AudioClip>("Audio/" + currentWordFixed.ToLower());
+            wordAudioSource.Play();
+        }
     }
 }
